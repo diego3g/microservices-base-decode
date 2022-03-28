@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+
 import { PrismaCustomersRepository } from '../database/prisma/repositories/prisma-customers-repository';
 import { PrismaProductsRepository } from '../database/prisma/repositories/prisma-products-repository';
 import { PrismaPurchasesRepository } from '../database/prisma/repositories/prisma-purchases-repository';
