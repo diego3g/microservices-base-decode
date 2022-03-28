@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req, res) => {
-  return res.json({ ok: true })
+  return res.json({ ok: true, message: 'Hello' })
 })
 
 app.post('/purchases', async (request, response) => {
