@@ -43,6 +43,6 @@ app.post('/purchases', async (request, response) => {
   }
 })
 
-app.listen(3333, () => {
+app.listen(process.env.PORT || 3333, () => {
   console.log('[Purchases] Server running');
 });
