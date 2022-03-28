@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "Running startup commands"
 
-npm run prisma migrate deploy
-npm run prisma generate
+npx prisma migrate deploy
+npx prisma generate
 npm run start
