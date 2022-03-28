@@ -30,4 +30,4 @@ COPY --chown=node:node --from=prodDependencies /var/app/node_modules node_module
 COPY --chown=node:node --from=prodDependencies /var/app/dumb-init dumb-init
 COPY --chown=node:node --from=build /var/app/dist dist/
 ENTRYPOINT ["/var/app/dumb-init", "--"]
-CMD ["node", "/var/app/dist"]
+CMD ["npm run start"]
