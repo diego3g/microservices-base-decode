@@ -9,9 +9,6 @@
     "start:dev": "tsnd --respawn --transpile-only src/infra/http/index.ts",
     "build": "tsc"
   },
-  "prisma": {
-    "seed": "ts-node infra/database/prisma/seed.ts"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
