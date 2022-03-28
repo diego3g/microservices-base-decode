@@ -10,6 +10,10 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  return res.json({ ok: true })
+})
+
 app.post('/purchases', async (request, response) => {
   const { productId, name, email } = request.body;
 
