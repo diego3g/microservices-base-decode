@@ -19,7 +19,7 @@ interface PurchasesNewPurchaseMessage {
 }
 
 async function main() {
-  const consumer = kafka.consumer({ groupId: 'classroom-group' })
+  const consumer = kafka.consumer({ groupId: 'classroom-group', allowAutoTopicCreation: true })
 
   await consumer.connect()
   await consumer.subscribe({ topic: 'purchases.new-purchase' })
