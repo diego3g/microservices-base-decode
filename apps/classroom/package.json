@@ -2,10 +2,10 @@
   "name": "classroom",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/infra/http/index.js",
+  "main": "dist/infra/messaging/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/infra/http/index.js",
+    "start": "node dist/infra/messaging/index.js",
     "start:dev": "tsnd --respawn --transpile-only src/infra/messaging/index.ts",
     "build": "tsc"
   },
