@@ -1,5 +1,6 @@
 import { Customer } from "../../domain/customer";
 import { Purchase } from "../../domain/purchase";
+import { MessagingAdapter } from "../adapters/messaging-adapter";
 import { CustomersRepository } from "../repositories/customers-repository";
 import { ProductsRepository } from "../repositories/products-repository";
 import { PurchasesRepository } from "../repositories/purchases-repository";
@@ -15,10 +16,14 @@ export class PurchaseProduct {
     private customersRepository: CustomersRepository,
     private productsRepository: ProductsRepository,
     private purchasesRepository: PurchasesRepository,
+
+    private messagingAdapter: MessagingAdapter,
   ) {}
 
   async execute({ name, email, productId }: PurchaseProductRequest): Promise<void> {
-    const productExists = !!this.productsRepository.findById(productId);
+    const product = await this.productsRepository.findById(productId);
+
+    const productExists = !!product;
 
     if (!productExists) {
       throw new Error('Products does not exists');
@@ -38,5 +43,21 @@ export class PurchaseProduct {
     })
 
     await this.purchasesRepository.create(purchase);
+
+    /**
+     * This SHOULD NOT be here
+     */
+
+    await this.messagingAdapter.sendMessage('purchases.new-purchase', {
+      product: {
+        id: product.id,
+        title: product.title,
+      },
+      customer: {
+        name: customer.name,
+        email: customer.email,
+      },
+      purchaseId: purchase.id,
+    })
   }
 }

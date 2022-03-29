@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import express from 'express';
 import cors from 'cors';
 
@@ -5,6 +7,7 @@ import { PrismaCustomersRepository } from '../database/prisma/repositories/prism
 import { PrismaProductsRepository } from '../database/prisma/repositories/prisma-products-repository';
 import { PrismaPurchasesRepository } from '../database/prisma/repositories/prisma-purchases-repository';
 import { PurchaseProduct } from '../../application/usecases/purchase-product';
+import { KafkaMessagingAdapter } from '../messaging/kafka/adapters/kafka-messaging-adapter';
 
 const app = express();
 
@@ -21,11 +24,13 @@ app.post('/purchases', async (request, response) => {
   const prismaCustomersRepository = new PrismaCustomersRepository();
   const prismaProductsRepository = new PrismaProductsRepository();
   const prismaPurchasesRepository = new PrismaPurchasesRepository();
+  const kafkaMessagingAdapter = new KafkaMessagingAdapter()
 
   const purchaseProductUseCase = new PurchaseProduct(
     prismaCustomersRepository, 
     prismaProductsRepository,
     prismaPurchasesRepository,
+    kafkaMessagingAdapter
   )
 
   try {
@@ -37,6 +42,8 @@ app.post('/purchases', async (request, response) => {
 
     return response.status(201).send();
   } catch (err) {
+    console.error(err);
+
     return response.status(400).json({
       error: 'Error while creating a new purchase'
     })
